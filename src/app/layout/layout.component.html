@@ -1,0 +1,37 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="(isHandset$ | async) === false">
+    <mat-toolbar> <img class="logo" src="../../assets/img/Logo Colegio Carlos Lemus.png" width="100px" alt=""></mat-toolbar>
+    <mat-nav-list  style="margin-top: 50px;">
+      <a mat-list-item [routerLink]="['']">Principal</a>
+      <a mat-list-item [routerLink]="['/actividades']">Actividades</a>
+      <a mat-list-item [routerLink]="['/horarios']">Horarios</a>
+      <a mat-list-item [routerLink]="['/educacion']">Educación</a>
+      <a mat-list-item [routerLink]="['/contacto']">Contacto</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar >
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span></span>
+    </mat-toolbar>
+    <!-- Add Content Here -->
+    <router-outlet></router-outlet>
+    <br>
+    <footer >
+      <br>
+      <div style="height: 150px; padding-left: 30px; ">
+      <p class="text-bold"><mat-icon class="icon-align icon">copyright</mat-icon>Servicios Educativos, Nocturna "Lic. Carlos Lemus" 2023-2024</p>
+      </div>
+    </footer>
+  </mat-sidenav-content>
+</mat-sidenav-container>

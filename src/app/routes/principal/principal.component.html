@@ -1,0 +1,62 @@
+
+<mat-tab-group #myTabGroup color="warn">
+  <mat-tab  label = "INICIO" >
+    Cntenido Principal
+  </mat-tab>
+  <mat-tab  label = "CICLO ESCOLAR 2024" >
+    <div fxLayout.xs="column" fxLayoutAlign="center">
+      <br>
+      <br>
+      <br>
+      <img src="../../../assets/img/Principal/Inscripciones 1.jpg" alt="" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="90%" fxFlex.md="80%" fxFlex.lg="50%" fxFlex.xl="40%">
+    </div>
+    <br>
+    <div style="text-align: center;">
+      <button (click)="irACarreras(myTabGroup)" mat-fab extended color="warn">
+        <mat-icon>east</mat-icon>
+        CARRERAS
+      </button>
+    </div>
+    <br>
+  </mat-tab>
+  <mat-tab id="tabGroup" fxLayout.xs="row" label="CARRERAS" >
+    <br>
+    <div fxLayout.xs="column" fxLayoutAlign="center">
+      <img src="../../../assets/img/Principal/Inscripciones.jpg" alt="" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="80%" fxFlex.md="80%" fxFlex.lg="40%" fxFlex.xl="40%">
+    </div>
+    <br>
+    <div fxLayout.xs="column" fxLayoutAlign="center">
+      <img src="../../../assets/img/Principal/Inscripciones2.jpg" alt="" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="80%" fxFlex.md="80%" fxFlex.lg="40%" fxFlex.xl="40%">
+    </div>
+    <br>
+    <div style="text-align: center;">
+      <button (click)="irAPrincipal(myTabGroup)" mat-fab extended color="warn">
+        <mat-icon>west</mat-icon>
+        PRINCIPAL
+      </button>
+      &nbsp;&nbsp;&nbsp;&nbsp;
+      <br fxHide.gt-xs>
+      <br fxHide.gt-xs>
+      <button (click)="irAPrimariaYBasicos(myTabGroup)" mat-fab extended color="warn">
+        <mat-icon>east</mat-icon>
+        PRIMARIA Y BASICOS
+      </button>
+    </div>
+    <br>
+  </mat-tab>
+  <br>
+  <mat-tab  label = "PRIMARIA Y BASICOS" >
+    <br>
+    <div fxLayout.xs="column" fxLayoutAlign="center">
+      <img src="../../../assets/img/Principal/Inscripciones3.jpg" alt="" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="80%" fxFlex.md="80%" fxFlex.lg="50%" fxFlex.xl="40%">
+    </div>
+    <br>
+    <div style="text-align: center;">
+      <button (click)="irACarreras(myTabGroup)" mat-fab extended color="warn">
+        <mat-icon>west</mat-icon>
+        CARRERAS
+      </button>
+    </div>
+    <br>
+  </mat-tab>
+</mat-tab-group>

@@ -3,8 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from './layout.component';
 
 const routes: Routes = [
-  {
-    path: '',
+  { path: '',
     component: LayoutComponent,
     children : [
       {

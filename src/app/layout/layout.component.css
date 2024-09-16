@@ -1,5 +1,7 @@
 .sidenav-container {
-  height: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ocupa al menos toda la altura de la ventana */
 }
 
 .sidenav {
@@ -11,11 +13,38 @@
 }
 
 .mat-toolbar {
-  background: linear-gradient(to right, #ffffff, #1cd300);
+  background: linear-gradient(to right,  #ffffff, #0fff2f);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-footer{
-  background: linear-gradient(to right, #ffffff, #1cd300);
+/* .background-mat-sidenav{
+  background: linear-gradient(to right,  #ffffff, #54ff71);
+} */
+
+
+.mat-sidenav-content {
+  flex: 1; /* El contenido toma todo el espacio disponible */
+  display: flex;
+  flex-direction: column;
+}
+
+.footer {
+  background: linear-gradient(to right, #ffffff, #0fff2f);
+  padding: 1rem;
+  text-align: left;
+  margin-top: auto; /* Empuja el footer hacia el final */
+  width: 100%; /* Asegura que el footer ocupe todo el ancho */
+}
+
+/* footer{
+  background: linear-gradient(to right, #ffffff, #6bff7f);
+} */
+
+.logout-a{
+  color: white;
+  margin-left: auto;
 }
 
 .mat-toolbar.mat-primary {

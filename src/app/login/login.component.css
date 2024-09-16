@@ -1,0 +1,54 @@
+.login-body{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-container{
+  margin-top: 30px;
+  width: 350px;
+  background: linear-gradient(to right, #ffffff, #1cd300);
+}
+
+
+.example-container-img{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #2a7f0e;
+}
+
+
+.example-container-tittle{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffbb00;
+  height: 50px; /* O ajusta la altura según tus necesidades */
+  font-size: 17px;
+}
+
+
+.example-container-user{
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.example-container-password{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-input{
+  width: 245px;
+}
+
+.example-container-ingresar{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+}

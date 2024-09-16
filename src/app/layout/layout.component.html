@@ -1,5 +1,5 @@
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #drawer class="sidenav" fixedInViewport
+  <mat-sidenav #drawer class="sidenav background-mat-sidenav" fixedInViewport
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="(isHandset$ | async) === false">
@@ -18,19 +18,20 @@
         type="button"
         aria-label="Toggle sidenav"
         mat-icon-button
-        (click)="drawer.toggle()"
-        *ngIf="isHandset$ | async">
-        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        (click)="drawer.toggle()">
+        <mat-icon aria-label="Side nav toggle icon" >menu</mat-icon>
       </button>
-      <span></span>
+      <a class="logout-a" [routerLink]="'login'" href="">
+        <mat-icon class="icon-align icon text-bold" style="font-size:26px;">logout</mat-icon>
+      </a>
     </mat-toolbar>
     <!-- Add Content Here -->
     <router-outlet></router-outlet>
     <br>
-    <footer >
+    <footer class="footer">
       <br>
-      <div style="height: 150px; padding-left: 30px; ">
-      <p class="text-bold"><mat-icon class="icon-align icon">copyright</mat-icon>Servicios Educativos, Nocturna "Lic. Carlos Lemus" 2023-2024</p>
+      <div style="height: 100px; padding-left: 30px; ">
+      <p class="text-bold "><mat-icon class="icon-align icon">copyright</mat-icon>Servicios Educativos Lic. Carlos Lemus 2024-2025</p>
       </div>
     </footer>
   </mat-sidenav-content>

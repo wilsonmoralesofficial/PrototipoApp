@@ -1,0 +1,91 @@
+<div class="flex-grow-1 container-p-y">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body ">
+        <div class="row ">
+          <div class="justify-content-center col-xs-12 col-sm-12 col-md-6">
+            <h1 class="pull-left text-dark"><strong>&nbsp;Listado de Alumnos&nbsp;<i class="bi bi-person-vcard text-primary fs-2"></i></strong></h1>
+          </div>
+          <div class="col-xs-12 col-sm-12 col-md-6">
+            <ul class="nav justify-content-end">
+              <li class="nav-item" (click)="this.irADireccion()" type="button">
+                <a class="nav-link disabled text-warning" href="#"
+                  style="padding-left: 0px; padding-right: 0px;">Dirección</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link disabled text-dark text" href="#" style="padding-left: 5px; padding-right: 10px;">/
+                  Alumnos</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="d-none d-sm-none d-md-none d-lg-block" *ngIf="this.cargandoDatos == false">
+  <div class="card">
+    <div class="card-header">
+      <ul class="nav justify-content-end">
+        <li class="nav-item">
+          <button type="button" class="btn btn-primary text-white"
+            (click)="crearAlumno()"><i class="bi bi-person-bounding-box text-white"></i>&nbsp;Registrar Alumno</button>
+        </li>
+      </ul>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive text-nowrap">
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr class="table-dark">
+              <th scope="col">#</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Edad</th>
+              <th scope="col">Carrera</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of this.alumnosListado">
+              <th scope="row">{{item.id}}</th>
+              <td>{{item.nombre}}</td>
+              <td>{{item.edad}}</td>
+              <td>{{item.id_grado_o_carrera_a_cursar}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="container d-block d-sm-block d-md-block d-lg-none" *ngIf="this.cargandoDatos == false">
+  <table class="table table-hover">
+    <thead>
+      <ul class="nav justify-content-end">
+        <li class="nav-item">
+          <button type="button" class="btn btn-primary text-white"
+            (click)="crearAlumno()"><i class="bi bi-person-bounding-box text-white"></i>&nbsp;Registrar Alumno</button>
+        </li>
+      </ul>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of this.alumnosListado">
+        <div class="col-12">
+          <div class="list-group" id="list-tab" role="tablist">
+            <a class="list-group-item list-group-item-action disabled bg-dark text-white" id="list-home-list"
+              data-bs-toggle="list" href="#list-home" role="tab" aria-controls="list-home"><strong>#
+                {{item.id}}</strong></a>
+            <a class="list-group-item list-group-item-action disabled" id="list-profile-list" data-bs-toggle="list"
+              href="#list-profile" role="tab" aria-controls="list-profile"><strong>Nombre:</strong> {{item.nombre}}</a>
+            <a class="list-group-item list-group-item-action disabled" id="list-messages-list" data-bs-toggle="list"
+              href="#list-messages" role="tab" aria-controls="list-messages"><strong>Edad: </strong> {{item.edad}}</a>
+            <a class="list-group-item list-group-item-action disabled" id="list-settings-list" data-bs-toggle="list"
+              href="#list-settings" role="tab" aria-controls="list-settings"><strong>Carrera: </strong>
+              {{item.id_grado_o_carrera_a_cursar}}</a>
+          </div>
+        </div>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,36 @@
+<div class="login-body">
+<div class="login-container">
+  <div class="example-container-img">
+    <img src="../../assets/img/Logo Colegio Carlos Lemus.png" alt="" width="90px">
+  </div>
+  <div class="example-container-tittle">
+    <span style="color: white;">
+      INGRESA PARA CONTINUAR
+    </span>
+  </div>
+  <div class="example-container-user">
+    <mat-form-field class="user-input" color="warn">
+      <mat-label>Usuario</mat-label>
+      <input [(ngModel)]="user" matInput placeholder="example: wilsonm" required>
+      <button mat-icon-button matSuffix >
+        <mat-icon color="warn">person</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+  <div class="example-container-password">
+    <mat-form-field class="password-input" color="warn">
+      <mat-label >Contraseña</mat-label>
+      <input [(ngModel)]="password" matInput [type]="hide ? 'password' : 'text'" required>
+      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+        <mat-icon color="warn">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+  <div class="example-container-ingresar">
+    <button (click)="this.ingresar()" mat-fab extended color="warn">
+      INGRESAR
+    </button>
+  </div>
+</div>
+</div>
+

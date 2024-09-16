@@ -10,19 +10,18 @@ import { HorariosComponent } from './horarios/horarios.component';
 import { SharedModule } from '../shared/shared.module';
 
 
-
 @NgModule({
   declarations: [
     PrincipalComponent,
     ActividadesComponent,
     EducacionComponent,
     ContactoComponent,
-    HorariosComponent,
+    HorariosComponent
   ],
   imports: [
     CommonModule,
     RouterModule.forChild(appRoutes),
-    SharedModule,
+    SharedModule
   ]
 })
 export class RoutesModule { }

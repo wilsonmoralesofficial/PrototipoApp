@@ -1,13 +1,16 @@
 
-<mat-tab-group #myTabGroup color="warn">
+<mat-tab-group #myTabGroup color="primary">
   <mat-tab  label = "INICIO" >
-    Cntenido Principal
+    <br>
+    <br>
+    <div fxLayout.xs="column" fxLayoutAlign="center">
+      <img src="../../../assets/img/Principal/clases-en-linea-inicio.jpg" alt="">
+    </div>
   </mat-tab>
   <mat-tab  label = "CICLO ESCOLAR 2024" >
+    <br>
+    <br>
     <div fxLayout.xs="column" fxLayoutAlign="center">
-      <br>
-      <br>
-      <br>
       <img src="../../../assets/img/Principal/Inscripciones 1.jpg" alt="" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="90%" fxFlex.md="80%" fxFlex.lg="50%" fxFlex.xl="40%">
     </div>
     <br>
@@ -47,9 +50,11 @@
   <br>
   <mat-tab  label = "PRIMARIA Y BASICOS" >
     <br>
+    <br>
     <div fxLayout.xs="column" fxLayoutAlign="center">
       <img src="../../../assets/img/Principal/Inscripciones3.jpg" alt="" fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="80%" fxFlex.md="80%" fxFlex.lg="50%" fxFlex.xl="40%">
     </div>
+    <br>
     <br>
     <div style="text-align: center;">
       <button (click)="irACarreras(myTabGroup)" mat-fab extended color="warn">

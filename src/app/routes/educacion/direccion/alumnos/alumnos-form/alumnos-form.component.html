@@ -1,0 +1,153 @@
+<div class="container-xxl flex-grow-1 container-p-y" *ngIf="!this.carga">
+  <div class="col-md-12">
+    <div class="card bg-dark">
+      <div class="card-body ">
+        <div class="row ">
+          <div class="justify-content-center col-md-6">
+            <h1 class="pull-left text-white"><i class="bi bi-person-bounding-box text-warning"
+                style="font-size: 50px;"></i><strong>&nbsp;&nbsp;Registro de Nuevo Alumno</strong></h1>
+          </div>
+          <div class="col-xs-12 col-sm-12 col-md-6">
+            <br>
+            <ul class="nav justify-content-end">
+              <li class="nav-item">
+                <button type="button" class="btn btn-primary text-white text-bold" (click)="volverListado()"><i
+                    class="bi bi-arrow-left-circle"></i>&nbsp;Atras</button>
+              </li>
+              &nbsp;&nbsp;
+              <li class="nav-item">
+                <button type="button" class="btn btn-primary text-white text-bold" (click)="grabar()"><i
+                    class="bi bi-floppy-fill"></i>&nbsp;Guardar</button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-xxl flex-grow-1 container-p-y" *ngIf="!this.carga">
+  <div class="col-md-12">
+    <div class="card mb-4">
+      <div class="card-body">
+        <div class="row mb-3">
+          <div class="col-lg-4 ">
+            <label for="exampleFormControlInput1" class="form-label"><span
+                class="text-bold"><strong>Nombre</strong></span></label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" maxlength="100"
+              [(ngModel)]="this.alumno.NOMBRE_ALUMNO">
+          </div>
+          <div class="col-lg-4 ">
+            <label for="exampleFormControlInput1" class="form-label"><span
+                class="text-bold"><strong>Apellidos</strong></span></label>
+            <input type="text" class="form-control" id="exampleFormControlInput2" maxlength="100"
+              [(ngModel)]="this.alumno.APELLIDOS_ALUMNO">
+          </div>
+          <div class="col-lg-4">
+            <label for="exampleFormControlInput1" class="form-label"><span class="text-bold"><strong>Numero de
+                  Teléfono</strong></span></label>
+            <input type="text" class="form-control" id="exampleFormControlInput5"
+              [(ngModel)]="this.alumno.TELEFONO_ALUMNO" maxlength="8">
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-lg-6">
+            <label for="exampleFormControlInput1" class="form-label"><span class="text-bold"><strong>Correo
+                  Electrónico</strong></span></label>
+            <input type="email" class="form-control" id="exampleFormControlInput6" [(ngModel)]="this.alumno.EMAIL" maxlength="100">
+          </div>
+          <div class="col-lg-3">
+            <label for="exampleFormControlInput1" class="form-label"><span class="text-bold"><strong>Fecha de
+                  Nacimiento</strong></span></label>
+            <input type="date" class="form-control" id="exampleFormControlInput4"
+              [(ngModel)]="this.alumno.FECHA_NACIMIENTO_ALUMNO">
+          </div>
+          <div class="col-lg-3">
+            <label for="exampleFormControlInput1" class="form-label"><span
+                class="text-bold"><strong>Edad</strong></span></label>
+            <input type="number" class="form-control" id="exampleFormControlInput3" [(ngModel)]="this.alumno.EDAD" maxlength="2">
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-lg-3">
+            <label for="exampleFormControlSelect1" class="form-label"><span class="text-bold"><strong>Grado o Carrera
+                  a
+                  Cursar</strong></span></label>
+            <app-select-custom [data]="this.catalogodeGradosYCarreras"
+              (selectedData)="this.onSelectedGradoCarreraACursar($event)"
+              [textoSelect]="'Seleccione Grado/Carrera a Cursar'"></app-select-custom>
+          </div>
+          <div class="col-lg-3">
+            <label for="exampleFormControlSelect1" class="form-label"><span class="text-bold"><strong>Ultimo Grado o
+                  Carrera Cursado/a</strong></span></label>
+            <app-select-custom [data]="this.catalogodeGradosYCarreras"
+              (selectedData)="this.onSelectedGradoCarreraACursado($event)"
+              [textoSelect]="'Seleccione Ultimo Grado/Carrera Cursado'"></app-select-custom>
+          </div>
+          <div class="col-lg-3">
+            <label for="exampleFormControlInput1" class="form-label"><span class="text-bold"><strong>Nombre de Padre
+                  de
+                  Familia o Encargado</strong></span></label>
+            <input type="text" class="form-control" id="exampleFormControlInput1"
+              [(ngModel)]="this.alumno.PADRE_DE_FAMILIA_O_ENCARGADO" maxlength="100">
+          </div>
+          <div class="col-lg-3">
+            <label for="exampleFormControlInput1" class="form-label"><span class="text-bold"><strong>Numero de
+                  Teléfono
+                  de Padre de Familia o Encargado</strong></span></label>
+            <input type="text" class="form-control" id="exampleFormControlInput1"
+              [(ngModel)]="this.alumno.TELEFONO_ENCARGADO" maxlength="8">
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-lg-1">
+            <div class="col-md">
+              <small class="text-light fw-semibold">Radio</small>
+              <div class="form-check mt-3">
+                <input
+                  name="default-radio-1"
+                  class="form-check-input"
+                  type="radio"
+                  value="1"
+                  id="defaultRadio1"
+                  [(ngModel)]="this.alumno.PADECE_ENFERMEDAD"
+                />
+                <label class="form-check-label" for="defaultRadio1"> Si</label>
+              </div>
+              <div class="form-check">
+                <input
+                  name="default-radio-1"
+                  class="form-check-input"
+                  type="radio"
+                  value="0"
+                  id="defaultRadio2"
+                  checked
+                  [(ngModel)]="this.alumno.PADECE_ENFERMEDAD"
+                />
+                <label class="form-check-label" for="defaultRadio2"> No </label>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-11">
+            <label for="exampleFormControlTextarea1" class="form-label"><span class="text-bold"><strong>¿Alumno Padece
+                  de Alguna Enfermedad? Si su respuesta es ri ,especifíque.</strong></span></label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="4"
+              [(ngModel)]="this.alumno.DETALLE_ENFERMEDAD_ALUMNO"></textarea>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-lg-12">
+            <label for="exampleFormControlTextarea1" class="form-label"><span class="text-bold"><strong>Detalles del
+                  registro</strong></span></label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="4"
+              [(ngModel)]="this.alumno.DETALLE_REGISTRO" ></textarea>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-modal-espera-loader #modalEsperaLoader *ngIf="this.abrirModalEspera"></app-modal-espera-loader>

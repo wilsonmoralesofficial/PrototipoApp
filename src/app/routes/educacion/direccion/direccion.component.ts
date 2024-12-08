@@ -21,8 +21,16 @@ export class DireccionComponent {
 
   }
 
-
   navegarAlumnos(){
     this.router.navigate(['educacion/direccion/alumnos']);
+  }
+
+  navegarAGradosYCarreras()
+  {
+    this.router.navigate(['educacion/grados-carreras']);
+  }
+
+  navegarACatedraticos(){
+    this.router.navigate(['educacion/catedraticos']);
   }
 }

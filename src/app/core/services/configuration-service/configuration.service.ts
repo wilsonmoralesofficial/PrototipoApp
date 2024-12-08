@@ -17,14 +17,25 @@ getObtenerCatalogos(){
   return this.BASE_URL + environment.CATALOGOS_COLEGIO_OBTENER_CATALOGOS;
 }
 
+// GRADOS Y CARRERAS
+
+getObtenerListadoGradosYCarreras(){
+  return this.BASE_URL + environment.GRADOS_CARRERAS_OBTENER_LISTADO;
+}
+
  //ALUMNOS
 
 getObtenerListadoAlumnos(){
   return this.BASE_URL + environment.ALUMNOS_OBTENER_LISTADO;
 }
 
+getObtenerAlumnoPorId(){
+  return this.BASE_URL + environment.OBTENER_ALUMNO_POR_ID;
+}
+
 crearActualizarAlumno(){
   return this.BASE_URL + environment.ALUMNOS_CREAR_ACTUALIZAR_ALUMNO;
 }
+
 
 }

@@ -8,8 +8,11 @@ export const environment = {
 
   API_KEY_FRONT_END               : 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsInVzdWFyaW8iOiJERVNBMSIsInBhc3N3b3JkIjoiJDJiJDA1JGlDMTlZODB1L1YuUG9EaVkwRzk0dS5xcXdlbDdwMHc2cFNhV2todHQ4ZERrZTVvaWlVVkRXIiwiaWF0IjoxNzIwNzU0OTc4fQ.zHFavcMg82WxDFbBBqtgP6iGOmWXWH-YJgA6progguU',
   API_BASE                        : '/api/colegioapi/db/',
-  INSTANCE_URL                    : 'http://192.168.0.5:4800',
-  // INSTANCE_URL                    : 'http://localhost:4800',
+  //INSTANCE_URL                    : 'http://190.143.157.34:4800',
+
+  // INSTANCE_URL                    : 'http://192.168.0.5:4800',
+
+  INSTANCE_URL                    : 'http://localhost:4800',
 
   VERIFICAR_TOKEN_SESION          : 'sp_inc_cat_sesion_obtener_token',
 
@@ -25,8 +28,11 @@ export const environment = {
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // GENERAL - Catalogos
   CATALOGOS_COLEGIO_OBTENER_CATALOGOS            : 'sp_cat_sys_colegio',
+  // CATALOGOS - GRADOS Y CARRERAS
+  GRADOS_CARRERAS_OBTENER_LISTADO                : 'sp_ccl_cat_grados_carreras_listado',
   // ALUMNOS - Alumnos
-  ALUMNOS_OBTENER_LISTADO                        : 'sp_alumnos_consultar_alumnos',
+  ALUMNOS_OBTENER_LISTADO                        : 'sp_ccl_alumnos_obtener_listado',
+  OBTENER_ALUMNO_POR_ID                          : 'sp_ccl_alumnos_consultar_alumno_por_id',
   ALUMNOS_CREAR_ACTUALIZAR_ALUMNO                : 'sp_alumnos_crear_actualizar_alumnos'
 
 

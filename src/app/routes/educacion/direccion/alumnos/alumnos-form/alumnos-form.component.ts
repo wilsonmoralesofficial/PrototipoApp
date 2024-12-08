@@ -1,7 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Alumno } from 'src/app/core/models/educacion/alumnos';
 import { AlumnosService } from 'src/app/core/services/alumnos-service/alumnos.service';
+import { DateService } from 'src/app/core/services/date-service/date.service';
 import { SweetalertServiceService } from 'src/app/core/services/sweetalert-service/sweetalert-service.service';
 
 @Component({
@@ -23,16 +24,76 @@ export class AlumnosFormComponent {
 
   constructor(
     private router: Router,
+    private activedRoute: ActivatedRoute,
     private alumnosService: AlumnosService,
-    private sweetalertServiceService: SweetalertServiceService
-  ) {}
+    private sweetalertServiceService: SweetalertServiceService,
+    private dateService : DateService
+  ) {
+
+
+   }
 
   ngOnInit() {
+
     this.cargaInicialDatos();
   }
 
-  volverListado() {
-    this.router.navigate(['/educacion/direccion/alumnos']);
+
+  async cargaInicialDatos() {
+
+    try {
+
+      await this.cargarCatalogos()
+      let params = this.activedRoute.snapshot.params;
+
+      if (params['id']) {
+        this.modoActualizacionRegistro = true;
+        this.alumno.ID_ALUMNO = params['id']
+
+        console.log(params['id']);
+        this.cargarAlumno(this.alumno.ID_ALUMNO.toString());
+        return;
+      }
+
+      this.carga = false;
+    } catch (error) {
+
+      this.carga = false;
+    }
+  }
+
+  async cargarCatalogos() {
+    let resultado = null;
+
+    try {
+      resultado = await this.alumnosService.obtenerCatalogosAlumnos();
+    } catch (error) {
+      this.sweetalertServiceService.alertResponseRequest("Alumnos", "Ocurrió un error al cargar los catalogos de alumnos", "error");
+    }
+
+    this.catalogodeGradosYCarreras = resultado;
+
+  }
+
+  async cargarAlumno(idAlumno : string){
+
+    let resultado = null;
+
+    try {
+      resultado = await this.alumnosService.obtenerAlumnoPorId(idAlumno);
+    } catch (error) {
+      this.sweetalertServiceService.alertResponseRequest("Alumnos","Ocurrio un error consultando alumno","error");
+      this.carga = false;
+      return
+    }
+
+    this.alumno = resultado
+
+
+    console.log(this.alumno);
+    let valorAlumno = this.dateService.getDateddMMyyyyyToyyyyMMdd(this.alumno.FECHA_NACIMIENTO_ALUMNO);
+    this.alumno.FECHA_NACIMIENTO_ALUMNO = valorAlumno;
+    this.carga = false;
   }
 
   onSelectedGradoCarreraACursar(data: string) {
@@ -43,10 +104,8 @@ export class AlumnosFormComponent {
     this.alumno.ID_ULTIMO_GRADO_CARRERA_APROBADO = (data !== '0' && data !== '') ? data : '';
   }
 
-  async cargaInicialDatos() {
-    const resultado = await this.alumnosService.obtenerCatalogosAlumnos();
-    this.catalogodeGradosYCarreras = resultado;
-    this.carga = false;
+  volverListado() {
+    this.router.navigate(['/educacion/direccion/alumnos']);
   }
 
   grabar() {
@@ -77,12 +136,9 @@ export class AlumnosFormComponent {
   }
 
   validarCamposObligatoriosVacios(): boolean {
-    return !(this.alumno.NOMBRE_ALUMNO && this.alumno.APELLIDOS_ALUMNO &&
-      this.alumno.TELEFONO_ALUMNO && this.alumno.EMAIL &&
-      this.alumno.FECHA_NACIMIENTO_ALUMNO && this.alumno.EDAD &&
-      this.alumno.ID_GRADO_CARRERA_A_CURSAR && this.alumno.ID_ULTIMO_GRADO_CARRERA_APROBADO &&
-      this.alumno.PADRE_DE_FAMILIA_O_ENCARGADO && this.alumno.TELEFONO_ENCARGADO &&
-      this.alumno.PADECE_ENFERMEDAD);
+    return !(this.alumno.NOMBRE_ALUMNO &&
+      this.alumno.TELEFONO_ALUMNO &&
+      this.alumno.FECHA_NACIMIENTO_ALUMNO);
   }
 
   async iniciarProcesoGrabacion() {
@@ -93,6 +149,7 @@ export class AlumnosFormComponent {
     try {
       resultado = await this.alumnosService.crearActualizarRegistroAlumno(this.alumno, accion);
     } catch (error) {
+      console.log(error)
       errorEnGrabar = true;
     }
 
@@ -100,21 +157,23 @@ export class AlumnosFormComponent {
       this.cerrarModalLoader();
       this.sweetalertServiceService.alertResponseRequest("Alumnos", "Ocurrió un error inesperado al guardar los cambios", "error");
       this.buttonGuardarDisabled = false;
-      this.router.navigate(['educacion/direccion/alumnos']);
       return;
     }
 
     if (resultado.RESULTADO !== 1) {
       this.buttonGuardarDisabled = false;
       this.cerrarModalLoader();
-      this.sweetalertServiceService.alertResponseRequest("Alumnos", `Ocurrió un error al ${(this.modoActualizacionRegistro) ? 'actualizar' : 'crear'}`, "error");
+        this.sweetalertServiceService.alertResponseRequest("Alumnos", `Ocurrió un error al ${(this.modoActualizacionRegistro) ? 'actualizar' : 'crear'}`, "error");
       return;
     }
 
-   this.cerrarModalLoader();
+    this.cerrarModalLoader();
     const mensaje = this.modoActualizacionRegistro ? "Registro Actualizado con Éxito" : "Registro creado con Éxito";
     this.sweetalertServiceService.alertResponseRequest("Alumnos", mensaje, "success");
-    this.router.navigate(['educacion/direccion/alumnos']);
+    setTimeout(() => {
+      this.router.navigate(['educacion/direccion/alumnos']);
+    }, 1000);
+
     this.buttonGuardarDisabled = false;
   }
 

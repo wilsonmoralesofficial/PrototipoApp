@@ -15,23 +15,36 @@ export class AlumnosService {
     private configurationService: ConfigurationService
   ) { }
 
-  public obtenerAlumnos(): Promise<any> {
-    return new Promise(
-      resolve => {
-        this.generalService.execute(this.configurationService.getObtenerListadoAlumnos())
-          .then(
-            Response => {
-              resolve(Response);
-            },
-            error => {
-              resolve(false);
-              console.error(error);
-            })
-          .catch(
-            except => {
-              console.warn("Ocurrio un error en el servicio AlumnosService en la función => obtenerAlumnos() ", except)
-            });
-      });
+  public obtenerAlumnos(): Promise<Alumno[]> {
+    return this.generalService.execute(this.configurationService.getObtenerListadoAlumnos())
+      .then(
+        gen => {
+          if (gen) {
+            return (gen as Alumno[])
+          }
+          return []
+        }
+      )
+      .catch(
+        except => {
+          console.warn("Ocurrio un error en el servicio AlumnosService en la función => obtenerAlumnos() ", except)
+          throw new Error(except)
+        });
+  }
+
+
+  public obtenerAlumnoPorId(idAlumno: string) : Promise<Alumno> {
+      return this.generalService.execute(this.configurationService.getObtenerAlumnoPorId(), idAlumno)
+      .then(
+        gen => {
+            return (gen[0] as Alumno)
+        }
+      )
+      .catch(
+        except => {
+          console.warn("Ocurrio un error en el servicio AlumnosService en la función => obtenerAlumnos() ", except)
+          throw new Error(except)
+        });
   }
 
   public obtenerCatalogosAlumnos(): Promise<any> {
@@ -62,18 +75,12 @@ export class AlumnosService {
         accion,
         alumno.ID_ALUMNO.toString(),
         alumno.NOMBRE_ALUMNO,
-        alumno.APELLIDOS_ALUMNO,
-        alumno.EDAD.toString(),
         alumno.EMAIL,
         alumno.TELEFONO_ALUMNO,
         alumno.DIRECCION,
         alumno.FECHA_NACIMIENTO_ALUMNO,
-        alumno.ID_GRADO_CARRERA_A_CURSAR,
-        alumno.ID_ULTIMO_GRADO_CARRERA_APROBADO,
         alumno.PADRE_DE_FAMILIA_O_ENCARGADO,
         alumno.TELEFONO_ENCARGADO,
-        alumno.PADECE_ENFERMEDAD.toString(),
-        alumno.DETALLE_ENFERMEDAD_ALUMNO,
         alumno.DETALLE_REGISTRO
       )
         .then(
@@ -141,51 +148,51 @@ export class AlumnosService {
     respuesta.FILAS_AFECTADAS = 0;
     //---- Tipo  = string, excepcion en resultado.
     if (typeof (gen) === "string") {
-       respuesta.ERRORES = [gen];
-       return respuesta;
+      respuesta.ERRORES = [gen];
+      return respuesta;
     }
 
     //--- Longitud vacía => sin respuesta
     if (gen.length == 0) {
-       respuesta.ERRORES = ["SIN RESPUESTA DEL SERVIDOR"];
-       respuesta.DESCRIPCION = "SIN RESPUESTA DEL SERVIDOR";
-       return respuesta;
+      respuesta.ERRORES = ["SIN RESPUESTA DEL SERVIDOR"];
+      respuesta.DESCRIPCION = "SIN RESPUESTA DEL SERVIDOR";
+      return respuesta;
     }
 
     //---- Evaluar por resultado de éxito | error
     let resultado = 0;
     if (Object.keys(gen[0]).indexOf("RESULTADO") >= 0) {
-       //---- Evaluar el resultado
-       resultado = gen[0]["RESULTADO"] == null ? -1 : Number(gen[0]["RESULTADO"]);
-       let descripcion = gen[0]["DESCRIPCION"] == null ? "" : gen[0]["DESCRIPCION"];
-       let idGenerado = gen[0]["ID_GENERADO"] == null ? 0 : Number(gen[0]["ID_GENERADO"]);
-       respuesta.ID_GENERADO = idGenerado;
-       respuesta.RESULTADO = Number(String(resultado).toString());
-       respuesta.DESCRIPCION = descripcion;
-       if (resultado >= 1) {
-          //---- Resultado Exitoso. Evaluar.
-          let filasAfectadas = 0;
-          let llaves = Object.keys(gen[0]);
-          let posicion = llaves.indexOf("FILAS_AFECTADAS");
-          if (posicion > -1) {
-             filasAfectadas = Number.parseInt(gen[0]["FILAS_AFECTADAS"]);
-          }
-          else {
-             posicion = llaves.indexOf("Filas_Afectadas");
-             if (posicion > -1)
-                filasAfectadas = Number.parseInt(gen[0]["Filas_Afectadas"]);
-          }
+      //---- Evaluar el resultado
+      resultado = gen[0]["RESULTADO"] == null ? -1 : Number(gen[0]["RESULTADO"]);
+      let descripcion = gen[0]["DESCRIPCION"] == null ? "" : gen[0]["DESCRIPCION"];
+      let idGenerado = gen[0]["ID_GENERADO"] == null ? 0 : Number(gen[0]["ID_GENERADO"]);
+      respuesta.ID_GENERADO = idGenerado;
+      respuesta.RESULTADO = Number(String(resultado).toString());
+      respuesta.DESCRIPCION = descripcion;
+      if (resultado >= 1) {
+        //---- Resultado Exitoso. Evaluar.
+        let filasAfectadas = 0;
+        let llaves = Object.keys(gen[0]);
+        let posicion = llaves.indexOf("FILAS_AFECTADAS");
+        if (posicion > -1) {
+          filasAfectadas = Number.parseInt(gen[0]["FILAS_AFECTADAS"]);
+        }
+        else {
+          posicion = llaves.indexOf("Filas_Afectadas");
+          if (posicion > -1)
+            filasAfectadas = Number.parseInt(gen[0]["Filas_Afectadas"]);
+        }
 
-          respuesta.FILAS_AFECTADAS = filasAfectadas;
-          respuesta.ERRORES = [];
-          return respuesta;
-          // return {ID:resultado, DESCRIPCION:descripcion, FILAS_AFECTADAS:filasAfectadas, ERRORES:[]};
-       }
-       //---- Resultado menor de 1, error en ejecución de procedimiento almacenado.
-       respuesta.FILAS_AFECTADAS = 0;
-       respuesta.ERRORES = [descripcion];
-       return respuesta;
-       // return {ID:resultado, DESCRIPCION:descripcion, FILAS_AFECTADAS:0, ERRORES:[descripcion]};
+        respuesta.FILAS_AFECTADAS = filasAfectadas;
+        respuesta.ERRORES = [];
+        return respuesta;
+        // return {ID:resultado, DESCRIPCION:descripcion, FILAS_AFECTADAS:filasAfectadas, ERRORES:[]};
+      }
+      //---- Resultado menor de 1, error en ejecución de procedimiento almacenado.
+      respuesta.FILAS_AFECTADAS = 0;
+      respuesta.ERRORES = [descripcion];
+      return respuesta;
+      // return {ID:resultado, DESCRIPCION:descripcion, FILAS_AFECTADAS:0, ERRORES:[descripcion]};
 
     }
 
@@ -195,28 +202,28 @@ export class AlumnosService {
     let objResultado = gen.pop();
     let mensajes: string[] = [];
     gen.forEach(
-       fila => {
-          if (Array.isArray(fila)) {
-             fila.forEach(
-                F => {
-                   if (Object.keys(F).indexOf("Code") >= 0 && Object.keys(F).indexOf("Message") >= 0)
-                      mensajes.push(F["Code"] + " - " + F["Message"]);
-                }
-             );
-          }
-          else {
-             if (Object.keys(fila).indexOf("Code") >= 0 && Object.keys(fila).indexOf("Message") >= 0)
-                mensajes.push(fila["Code"] + "-" + fila["Message"]);
-          }
-       }
+      fila => {
+        if (Array.isArray(fila)) {
+          fila.forEach(
+            F => {
+              if (Object.keys(F).indexOf("Code") >= 0 && Object.keys(F).indexOf("Message") >= 0)
+                mensajes.push(F["Code"] + " - " + F["Message"]);
+            }
+          );
+        }
+        else {
+          if (Object.keys(fila).indexOf("Code") >= 0 && Object.keys(fila).indexOf("Message") >= 0)
+            mensajes.push(fila["Code"] + "-" + fila["Message"]);
+        }
+      }
     );
     //let resultado:number = -2; // SQL Exception desde el Servidor, se toma como valor 2.
     let descripcion: string = "OCURRIO UN ERROR";
     if (objResultado != null) {
-       if (objResultado["RESULTADO"] != null)
-          resultado = objResultado["RESULTADO"];
-       if (objResultado["DESCRIPCION"] != null)
-          descripcion = objResultado["DESCRIPCION"];
+      if (objResultado["RESULTADO"] != null)
+        resultado = objResultado["RESULTADO"];
+      if (objResultado["DESCRIPCION"] != null)
+        descripcion = objResultado["DESCRIPCION"];
     }
     respuesta.RESULTADO = resultado;
     respuesta.DESCRIPCION = descripcion;
@@ -224,9 +231,9 @@ export class AlumnosService {
     respuesta.FILAS_AFECTADAS = 0;
     return respuesta;
     // return {ID:resultado, DESCRIPCION:descripcion, FILAS_AFECTADAS:0, ERRORES:mensajes};
- }
+  }
 
- private handleError(error: any): Promise<Respuesta> {
+  private handleError(error: any): Promise<Respuesta> {
     console.error("Error", "Ocurrio un error", error);
     // let respuesta = new Respuesta();
     // respuesta.RESULTADO = -1;
@@ -234,5 +241,5 @@ export class AlumnosService {
     // respuesta.ERRORES = [error.message || error];
     // respuesta.FILAS_AFECTADAS = 0;
     return Promise.reject(error.message || error);
- }
+  }
 }

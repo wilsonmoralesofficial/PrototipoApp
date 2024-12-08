@@ -1,5 +1,5 @@
 <select class="form-select"
-(change)="onSelectChange($event)">
+(change)="onSelectChange($event)" [(ngModel)]="selected">
   <option *ngFor="let item of data" [value]="item.id">
     {{item.text}}
   </option>

@@ -11,6 +11,8 @@ export class AlumnosListComponent {
 
   cargandoDatos : boolean = true;
   alumnosListado: Array<any> = []
+  filtro : string = ''
+  p: number = 1; // Página actual
 
   constructor(private alumnosService : AlumnosService,
     private router : Router
@@ -34,6 +36,12 @@ export class AlumnosListComponent {
 
   crearAlumno(){
     this.router.navigate(['educacion/direccion/alumnos/nuevo']);
+  }
+
+  irAEditarAlumno(idAlumno : string){
+
+    console.log(idAlumno)
+    this.router.navigate(['educacion/direccion/alumnos/'+ idAlumno + '/actualizar']);
   }
 
 }

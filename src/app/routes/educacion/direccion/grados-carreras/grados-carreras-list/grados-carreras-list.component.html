@@ -4,8 +4,9 @@
       <div class="card-body ">
         <div class="row ">
           <div class="justify-content-center col-xs-12 col-sm-12 col-md-6">
-            <h1 class="pull-left text-dark"><strong>&nbsp;Listado de Alumnos&nbsp;<i
-                  class="bi bi-person-vcard text-primary fs-2"></i></strong></h1>
+            <h1 class="pull-left text-dark"><strong>&nbsp;Listado de Grados y Carreras&nbsp;
+              <strong class="text-primary"><mat-icon>workspace_premium</mat-icon></strong>
+            </strong></h1>
           </div>
           <div class="col-xs-12 col-sm-12 col-md-6">
             <ul class="nav justify-content-end">
@@ -15,7 +16,7 @@
               </li>
               <li class="nav-item">
                 <a class="nav-link disabled text-dark text" href="#" style="padding-left: 5px; padding-right: 10px;">/
-                  Alumnos</a>
+                  Grados y Carreras</a>
               </li>
             </ul>
           </div>
@@ -29,8 +30,7 @@
     <div class="card-header">
       <ul class="nav justify-content-end">
         <li class="nav-item">
-          <button type="button" class="btn btn-primary text-white" (click)="crearAlumno()"><i
-              class="bi bi-person-bounding-box text-white"></i>&nbsp;Registrar Alumno</button>
+          <button type="button" class="btn btn-primary text-white pt-1" (click)="crearGradoOCarrera()"><mat-icon>workspace_premium</mat-icon>&nbsp;Registrar Grado/Carrera</button>
         </li>
       </ul>
     </div>
@@ -43,41 +43,38 @@
                 <div class="d-flex justify-content-end col-md-12">
                   <div class="col-md-6">
                     <label for="filtro" class="form-label"><span class="text-bold">
-                      <strong>Filtrar por Nombre o Apellido</strong></span></label>
+                      <strong>Filtrar por descripción</strong></span></label>
                     <input type="text" class="form-control"  maxlength="100"
                     [(ngModel)]="this.filtro">
                   </div>
                   <div class="d-flex justify-content-end col-md-6">
-                    <pagination-controls class="pagination" *ngIf="this.alumnosListado.length > 10"
+                    <pagination-controls class="pagination" *ngIf="this.gradosYCarrerasListado.length > 10"
                       (pageChange)="p = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
                   </div>
                 </div>
               </td>
             </tr>
             <tr class="table-dark">
-              <th scope="col">Nombre Completo</th>
-              <th scope="col">Fecha de Actualización de datos</th>
+              <th scope="col">Descripción  de Grado/Carrera</th>
               <th scope="col">Acciones</th>
             </tr>
           </thead>
-          <tbody *ngIf="this.alumnosListado.length > 0">
-            <tr
-              *ngFor="let item of this.alumnosListado | alumnosFiltro : this.filtro | paginate: { itemsPerPage: 10, currentPage: p }">
-              <td>{{item.NOMBRE_ALUMNO}}</td>
-              <td>{{item.FECHA_ACTUALIZACION_REGISTRO}}</td>
+          <tbody *ngIf="this.gradosYCarrerasListado.length > 0">
+            <tr *ngFor="let item of this.gradosYCarrerasListado | filtroGradosCarreras : this.filtro  | paginate : { itemsPerPage: 10, currentPage: p };let i = index">
+              <td>{{item.DESCRIPCION}}</td>
               <td><button type="button" class="btn btn-primary btn-sm text-white"
-                  (click)="irAEditarAlumno(item.ID_ALUMNO)">
+                  (click)="irAEditarGradoOCarrera(item.ID)">
                   <i class="bi bi-pencil-fill text-white"></i></button></td>
             </tr>
           </tbody>
-          <div *ngIf="this.alumnosListado.length == 0 || this.alumnosListado.length == null">
-            <h2 class="text-info">No hay alumnos regisrados</h2>
+          <div *ngIf="this.gradosYCarrerasListado.length == 0 || this.gradosYCarrerasListado.length == null">
+            <h2 class="text-info">No hay grados o carerras a mostrar</h2>
           </div>
-          <tfoot>
+          <tfoot *ngIf="this.gradosYCarrerasListado.length > 10">
             <tr>
               <th colspan="3">
                 <div class="d-flex justify-content-end">
-                  <pagination-controls class="pagination" *ngIf="this.alumnosListado.length > 10"
+                  <pagination-controls class="pagination" *ngIf="this.gradosYCarrerasListado.length > 10"
                     (pageChange)="p = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
                 </div>
               </th>
@@ -96,18 +93,18 @@
       <tr>
         <ul class="nav justify-content-end">
           <li class="nav-item">
-            <button type="button" class="btn btn-primary text-white" (click)="crearAlumno()"><i
-                class="bi bi-person-bounding-box text-white"></i>&nbsp;Registrar Alumno</button>
+            <button type="button" class="btn btn-primary text-white pt-1" (click)="crearGradoOCarrera()">
+              <mat-icon>workspace_premium</mat-icon>&nbsp;Registrar Grado/Carrera</button>
           </li>
         </ul>
       </tr>
       <tr>
-        <pagination-controls class="pagination" *ngIf="this.alumnosListado.length > 10" (pageChange)="p = $event"
+        <pagination-controls class="pagination" *ngIf="this.gradosYCarrerasListado.length > 10" (pageChange)="p = $event"
           previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
       </tr>
     </thead>
-    <tbody>
-      <tr *ngFor="let item of this.alumnosListado | paginate: { itemsPerPage: 10, currentPage: p } let i = index">
+    <tbody *ngIf="this.gradosYCarrerasListado.length > 0">
+      <tr *ngFor="let item of this.gradosYCarrerasListado | filtroGradosCarreras : this.filtro | paginate: { itemsPerPage: 10, currentPage: p } let i = index">
         <div class="col-12">
           <div class="list-group" id="list-tab" role="tablist">
             <!-- <a class="list-group-item list-group-item-action disabled bg-dark text-white" id="list-home-list"
@@ -115,25 +112,25 @@
                 {{item.id}}</strong></a> -->
             <a class="list-group-item list-group-item-action disabled text-dark"
               [ngClass]="{'bg-body-secondary': i % 2 === 0}" id="list-profile-list" data-bs-toggle="list"
-              href="#list-profile" role="tab" aria-controls="list-profile">Nombre Completo<br>
-              <strong>{{item.NOMBRE_ALUMNO}}</strong></a>
-            <a class="list-group-item list-group-item-action disabled" [ngClass]="{'bg-body-secondary': i % 2 === 0}"
-              id="list-settings-list" data-bs-toggle="list" href="#list-settings" role="tab"
-              aria-controls="list-settings">Fecha de Actualización de datos<br>
-              <strong>{{item.FECHA_ACTUALIZACION_REGISTRO}}</strong></a>
+              href="#list-profile" role="tab" aria-controls="list-profile">Descripción de Grado/Carrera<br>
+              <strong>{{item.DESCRIPCION}}</strong></a>
+
             <a class="list-group-item list-group-item-action " [ngClass]="{'bg-body-secondary': i % 2 === 0}"
               id="list-settings-list" data-bs-toggle="list" href="#list-settings" role="tab"
               aria-controls="list-settings">
               <button type="button" class="btn btn-primary btn-lg text-white"
-                (click)="irAEditarAlumno(item.ID_ALUMNO)"><i class="bi bi-pencil-fill text-white"></i></button>
+                (click)="irAEditarGradoOCarrera(item.ID)"><i class="bi bi-pencil-fill text-white"></i></button>
             </a>
           </div>
         </div>
       </tr>
     </tbody>
+    <div *ngIf="this.gradosYCarrerasListado.length == 0 || this.gradosYCarrerasListado.length == null">
+      <h2 class="text-info">No hay grados o carerras a mostrar</h2>
+    </div>
     <tfoot>
       <tr>
-        <pagination-controls class="pagination" *ngIf="this.alumnosListado.length > 10" (pageChange)="p = $event"
+        <pagination-controls class="pagination" *ngIf="this.gradosYCarrerasListado.length > 10" (pageChange)="p = $event"
           previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
       </tr>
     </tfoot>

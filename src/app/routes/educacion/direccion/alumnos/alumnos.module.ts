@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { AlumnosRoutingModule } from './alumnos-routing.module';
 import { AlumnosComponent } from './alumnos.component';
-import { SharedModule } from 'src/app/shared/shared.module';
+import { AlumnosPipe } from './alumnos.pipe';
 
 
 @NgModule({

@@ -1,14 +1,7 @@
 
 <br>
 <div class="container">
-  <ul class="nav justify-content-end">
-    <li class="nav-item">
-      <a class="nav-link active disabled" aria-current="page" href="#">direccion/</a>
-    </li>
-    <li class="nav-item" (click)="this.navegarAlumnos()" type="button">
-      <a class="nav-link disabled text-info" href="#">alumnos</a>
-    </li>
-  </ul>
+
 </div>
 
 
@@ -25,16 +18,6 @@
         </div>
       </div>
     </div>
-    <div class="col align-self-center" type="button">
-      <div class="card text-dark bg-warning mb-3" style="max-width: 18rem;">
-        <div class="card-header">&nbsp;</div>
-        <div class="card-body text-center">
-          <br>
-          <p class="card-text fs-4">Carreras <br></p>
-          <mat-icon>workspace_premium</mat-icon>
-        </div>
-      </div>
-    </div>
     <div class="col align-self-end" type="button">
       <div class="card text-dark bg-danger  mb-3" style="max-width: 18rem;">
         <div class="card-header">&nbsp;</div>
@@ -42,6 +25,26 @@
           <br>
           <p class="card-text fs-4">Inscripciones <br></p>
           <mat-icon>how_to_reg</mat-icon>
+        </div>
+      </div>
+    </div>
+    <div class="col align-self-center" type="button" (click)="this.navegarAGradosYCarreras()">
+      <div class="card text-dark bg-warning mb-3" style="max-width: 18rem;">
+        <div class="card-header">&nbsp;</div>
+        <div class="card-body text-center">
+          <br>
+          <p class="card-text fs-4">Grados y Carreras <br></p>
+          <mat-icon>workspace_premium</mat-icon>
+        </div>
+      </div>
+    </div>
+    <div class="col align-self-end" type="button" (click)="this.navegarACatedraticos()">
+      <div class="card text-dark bg-primary  mb-3" style="max-width: 18rem;">
+        <div class="card-header">&nbsp;</div>
+        <div class="card-body text-center">
+          <br>
+          <p class="card-text fs-4">Catedraticos <br></p>
+          <i class="bi-person-square" style="font-size: 27px;"></i>
         </div>
       </div>
     </div>

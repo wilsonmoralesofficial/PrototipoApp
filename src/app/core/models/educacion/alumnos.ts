@@ -3,7 +3,6 @@ export class Alumno {
   public ID_ALUMNO: number = 0;
   public CODIGO_UNICO_ALUMNO: string = '';
   public NOMBRE_ALUMNO: string = '';
-  public APELLIDOS_ALUMNO : string = '';
   public TELEFONO_ALUMNO : string = '';
   public EMAIL: string = '';
   public DIRECCION: string = '';
